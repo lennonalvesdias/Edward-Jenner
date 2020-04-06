@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using EdwardJenner.Domain;
 using EdwardJenner.Models.Security;
 using EdwardJenner.Security;
 using Microsoft.AspNetCore.Authorization;
