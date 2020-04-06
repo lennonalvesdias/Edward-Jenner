@@ -75,7 +75,6 @@ namespace EdwardJenner.WebApi.Controllers
         [Route("")]
         public async Task<IActionResult> Put([FromBody] User user)
         {
-            user.Password = Helper.GenerateHash(user.Password);
             var update = await _userRepository.Update(user);
 
             try
@@ -95,7 +94,6 @@ namespace EdwardJenner.WebApi.Controllers
         [Route("")]
         public async Task<IActionResult> Post([FromBody] User user)
         {
-            user.Password = Helper.GenerateHash(user.Password);
             await _userRepository.Insert(user);
 
             try

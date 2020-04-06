@@ -26,7 +26,6 @@ namespace EdwardJenner.WebApi.Controllers
         [Route("login")]
         public async Task<object> Login([FromBody]AccessCredentials credentials, [FromServices]AccessManager accessManager)
         {
-            credentials.Password = Helper.GenerateHash(credentials.Password);
             if (await accessManager.ValidateCredentialsAsync(credentials))
             {
                 return accessManager.GenerateToken(credentials);
