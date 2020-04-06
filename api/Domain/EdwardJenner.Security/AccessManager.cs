@@ -35,13 +35,13 @@ namespace EdwardJenner.Security
         public async Task<bool> ValidateCredentialsAsync(AccessCredentials credentials)
         {
             var validCredentials = false;
-            if (credentials == null || IsNullOrWhiteSpace(credentials.UserId)) return false;
+            if (credentials == null || IsNullOrWhiteSpace(credentials.Username)) return false;
 
             switch (credentials.GrantType)
             {
                 case "password":
                     {
-                        var userIdentity = await _userManager.FindByNameAsync(credentials.UserId);
+                        var userIdentity = await _userManager.FindByNameAsync(credentials.Username);
                         if (userIdentity != null)
                         {
                             var loginResult = _signInManager.CheckPasswordSignInAsync(userIdentity, credentials.Password, false).Result;
@@ -67,7 +67,7 @@ namespace EdwardJenner.Security
                                     .DeserializeObject<RefreshTokenData>(refreshTokenCache);
                             }
 
-                            validCredentials = (refreshTokenBase != null && credentials.UserId == refreshTokenBase.UserId && credentials.RefreshToken == refreshTokenBase.RefreshToken);
+                            validCredentials = (refreshTokenBase != null && credentials.Username == refreshTokenBase.UserId && credentials.RefreshToken == refreshTokenBase.RefreshToken);
 
                             if (validCredentials) await _cache.RemoveCache(credentials.RefreshToken);
                         }
@@ -82,10 +82,10 @@ namespace EdwardJenner.Security
         public Token GenerateToken(AccessCredentials credentials)
         {
             var identity = new ClaimsIdentity(
-                new GenericIdentity(credentials.UserId, "Login"),
+                new GenericIdentity(credentials.Username, "Login"),
                 new[] {
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                        new Claim(JwtRegisteredClaimNames.UniqueName, credentials.UserId)
+                        new Claim(JwtRegisteredClaimNames.UniqueName, credentials.Username)
                 }
             );
 
@@ -118,7 +118,7 @@ namespace EdwardJenner.Security
             var refreshTokenData = new RefreshTokenData
             {
                 RefreshToken = generateToken.RefreshToken,
-                UserId = credentials.UserId
+                UserId = credentials.Username
             };
 
             var finalExpiration = TimeSpan.FromSeconds(_tokenConfigurations.FinalExpiration);

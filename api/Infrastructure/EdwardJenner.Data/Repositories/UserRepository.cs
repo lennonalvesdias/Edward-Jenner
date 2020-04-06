@@ -48,6 +48,7 @@ namespace EdwardJenner.Data.Repositories
             var users = await ListBy(x => true);
             foreach (var user in users)
             {
+                if (await _userManager.FindByNameAsync(user.Username) != null) continue;
                 CreateApplicationUser(new ApplicationUser()
                 {
                     UserName = user.Username,
