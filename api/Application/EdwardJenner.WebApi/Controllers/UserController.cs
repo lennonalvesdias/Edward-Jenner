@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using EdwardJenner.Domain.Interfaces.Repositories;
 using EdwardJenner.Domain.Interfaces.Services;
 using EdwardJenner.Models.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdwardJenner.WebApi.Controllers
@@ -87,6 +88,7 @@ namespace EdwardJenner.WebApi.Controllers
             return Ok(update);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("")]
         public async Task<IActionResult> Post([FromBody] User user)

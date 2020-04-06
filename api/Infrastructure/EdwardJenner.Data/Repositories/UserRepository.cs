@@ -33,7 +33,7 @@ namespace EdwardJenner.Data.Repositories
             _userManager = userManager;
             _ratingRepository = ratingRepository;
             CreateIndexes();
-            Initialize();
+            Initialize().ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
         private void CreateIndexes()

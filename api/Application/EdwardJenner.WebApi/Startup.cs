@@ -79,7 +79,7 @@ namespace EdwardJenner.WebApi
 
             app.UseRouting();
 
-            app.UseCors();
+            app.UseCors(Configuration.GetSection("CorsSettings:PolicyName").Value);
 
             app.UseAuthorization();
 
@@ -88,7 +88,14 @@ namespace EdwardJenner.WebApi
 
         private void ConfigureCors(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(Configuration.GetSection("CorsSettings:PolicyName").Value, builder =>
+                {
+                    //builder.WithOrigins(Configuration.GetSection("CorsSettings:Urls").Value.Split(';')).AllowAnyHeader();
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
         }
 
         private void ConfigureSettings(IServiceCollection services)
