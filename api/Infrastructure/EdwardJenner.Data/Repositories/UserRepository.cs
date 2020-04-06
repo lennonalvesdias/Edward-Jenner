@@ -45,10 +45,9 @@ namespace EdwardJenner.Data.Repositories
 
         private async Task Initialize()
         {
-            var users = await ListBy(x => true);
-            foreach (var user in users)
+            var users = await BaseCollection.Find(x => true).ToListAsync();
+            foreach (var user in users.Where(user => _userManager.FindByNameAsync(user.Username).Result == null))
             {
-                if (_userManager.FindByNameAsync(user.Username).Result != null) continue;
                 CreateApplicationUser(new ApplicationUser()
                 {
                     UserName = user.Username,
