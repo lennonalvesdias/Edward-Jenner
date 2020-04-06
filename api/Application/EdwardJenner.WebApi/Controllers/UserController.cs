@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EdwardJenner.Domain;
 using EdwardJenner.Domain.Interfaces.Repositories;
 using EdwardJenner.Domain.Interfaces.Services;
 using EdwardJenner.Models.Models;
