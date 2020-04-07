@@ -8,6 +8,7 @@ using EdwardJenner.Cross.Models;
 using EdwardJenner.Domain.Exceptions;
 using EdwardJenner.Domain.Interfaces.Repositories;
 using EdwardJenner.Domain.Interfaces.Services;
+using EdwardJenner.Models.DTO;
 using EdwardJenner.Models.Models;
 using EdwardJenner.Models.Security;
 using EdwardJenner.Models.Settings;
@@ -48,12 +49,14 @@ namespace EdwardJenner.Data.Repositories
             var users = await BaseCollection.Find(x => true).ToListAsync();
             foreach (var user in users.Where(user => _userManager.FindByNameAsync(user.Username).Result == null))
             {
-                CreateApplicationUser(new ApplicationUser()
+                var applicationUser = CreateApplicationUser(new ApplicationUser()
                 {
                     UserName = user.Username,
                     Email = user.Email,
                     EmailConfirmed = true
                 }, user.Password, Roles.RoleApiEdwardJenner);
+                user.ApplicationUserId = applicationUser.Id;
+                await Update(user);
             }
         }
 
@@ -108,6 +111,9 @@ namespace EdwardJenner.Data.Repositories
 
         public new async Task<User> Update(User user)
         {
+            var oldUser = await BaseCollection.Find(x => x.Id == user.Id).FirstOrDefaultAsync();
+            user.Password = oldUser.Password;
+
             user.UpdatedIn = DateTime.Now;
 
             foreach (var address in user.Addresses)
@@ -124,6 +130,18 @@ namespace EdwardJenner.Data.Repositories
             var applicationUser = await _userManager.FindByIdAsync(user.ApplicationUserId);
             await _userManager.DeleteAsync(applicationUser);
             await BaseCollection.DeleteManyAsync(filter);
+        }
+
+        public async Task<User> UpdatePassword(string id, UpdatePassword updatePassword)
+        {
+            var user = await FindBy(x => x.Id == id);
+            var applicationUser = await _userManager.FindByIdAsync(user.ApplicationUserId);
+            var changePasswordResult = await _userManager.ChangePasswordAsync(applicationUser, updatePassword.OldPassword, updatePassword.NewPassword);
+            if (!changePasswordResult.Succeeded) throw new BadRequestException(changePasswordResult.ToString());
+            user.Password = updatePassword.NewPassword;
+            await Update(user);
+            user.Password = null;
+            return user;
         }
 
         private ApplicationUser CreateApplicationUser(ApplicationUser user, string password, string initialRole = null)
