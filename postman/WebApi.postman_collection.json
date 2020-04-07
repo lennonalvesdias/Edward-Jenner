@@ -78,7 +78,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"userId\": \"{{user}}\",\r\n\t\"password\": \"{{password}}\",\r\n\t\"refreshToken\": null,\r\n\t\"grantType\": \"password\"\r\n}",
+							"raw": "{\n\t\"username\": \"{{user}}\",\n\t\"password\": \"{{password}}\",\n\t\"refreshToken\": null,\n\t\"grantType\": \"password\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -569,6 +569,294 @@
 					"response": []
 				},
 				{
+					"name": "user.username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8357e144-edfd-44e2-a975-39d130100284",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/user/username/lennonalvesdias",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user",
+								"username",
+								"lennonalvesdias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user.phones",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8357e144-edfd-44e2-a975-39d130100284",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/user/5e8bc8110d406a2da0e1e2e9/phones",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user",
+								"5e8bc8110d406a2da0e1e2e9",
+								"phones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user.phones",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8357e144-edfd-44e2-a975-39d130100284",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ddd\": \"997210201\",\n    \"number\": \"14\",\n    \"type\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/user/5e8bc8110d406a2da0e1e2e9/phones",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user",
+								"5e8bc8110d406a2da0e1e2e9",
+								"phones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user.phones",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8357e144-edfd-44e2-a975-39d130100284",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ddd\": \"997210201\",\n    \"number\": \"14\",\n    \"type\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/user/5e8bc8110d406a2da0e1e2e9/phones",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user",
+								"5e8bc8110d406a2da0e1e2e9",
+								"phones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user.addresses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8357e144-edfd-44e2-a975-39d130100284",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/user/5e8bc8110d406a2da0e1e2e9/addresses",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user",
+								"5e8bc8110d406a2da0e1e2e9",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user.addresses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8357e144-edfd-44e2-a975-39d130100284",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"country\": \"BR\",\n    \"state\": \"SP\",\n    \"city\": \"São Paulo\",\n    \"neighborhood\": \"Planalto Paulista\",\n    \"street\": \"Avenida Moema\",\n    \"number\": \"84\",\n    \"longitude\": -46.65987399999999,\n    \"latitude\": -23.603695,\n    \"type\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/user/5e8bc8110d406a2da0e1e2e9/addresses",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user",
+								"5e8bc8110d406a2da0e1e2e9",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user.addresses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8357e144-edfd-44e2-a975-39d130100284",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"country\": \"BR\",\n    \"state\": \"SP\",\n    \"city\": \"São Paulo\",\n    \"neighborhood\": \"Planalto Paulista\",\n    \"street\": \"Avenida Moema\",\n    \"number\": \"84\",\n    \"longitude\": -46.65987399999999,\n    \"latitude\": -23.603695,\n    \"type\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/user/5e8bc8110d406a2da0e1e2e9/addresses",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user",
+								"5e8bc8110d406a2da0e1e2e9",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "user",
 					"event": [
 						{
@@ -592,7 +880,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Lennon Dias\",\r\n    \"username\": \"lennonalvesdias\",\r\n    \"email\": \"lennonalvesdias@gmail.com\",\r\n    \"password\": \"qLF!Ydzu6G82\",\r\n    \"avatar\": null,\r\n    \"cpf\": \"01234567890\",\r\n    \"adresses\": [\r\n        {\r\n            \"country\": \"BR\",\r\n            \"state\": \"SP\",\r\n            \"city\": \"São Paulo\",\r\n            \"neighborhood\": \"Planalto Paulista\",\r\n            \"street\": \"Avenida Moema\",\r\n            \"number\": \"84\",\r\n            \"type\": 0\r\n        }\r\n    ],\r\n    \"phones\": [\r\n        {\r\n            \"ddd\": \"997210201\",\r\n            \"number\": \"14\",\r\n            \"type\": 0\r\n        }\r\n    ],\r\n    \"applicationUserId\": \"dbe1046c-4157-4881-891a-84a0ba384321\",\r\n    \"type\": 1,\r\n    \"birthday\": \"1994-07-18T03:00:00Z\",\r\n    \"distance\": 2000\r\n}",
+							"raw": "{\r\n    \"name\": \"Lennon Dias\",\r\n    \"username\": \"lennonalvesdias\",\r\n    \"email\": \"lennonalvesdias@gmail.com\",\r\n    \"password\": \"qLF!Ydzu6G82\",\r\n    \"avatar\": null,\r\n    \"cpf\": \"01234567890\",\r\n    \"addresses\": [\r\n        {\r\n            \"country\": \"BR\",\r\n            \"state\": \"SP\",\r\n            \"city\": \"São Paulo\",\r\n            \"neighborhood\": \"Planalto Paulista\",\r\n            \"street\": \"Avenida Moema\",\r\n            \"number\": \"84\",\r\n            \"type\": 0\r\n        }\r\n    ],\r\n    \"phones\": [\r\n        {\r\n            \"ddd\": \"997210201\",\r\n            \"number\": \"14\",\r\n            \"type\": 0\r\n        }\r\n    ],\r\n    \"applicationUserId\": \"dbe1046c-4157-4881-891a-84a0ba384321\",\r\n    \"type\": 1,\r\n    \"birthday\": \"1994-07-18T03:00:00Z\",\r\n    \"distance\": 2000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -618,7 +906,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"name\": \"Lennon Dias\",\r\n        \"username\": \"lennonalvesdias\",\r\n        \"email\": \"lennonalvesdias@gmail.com\",\r\n        \"password\": null,\r\n        \"cpf\": \"01234567890\",\r\n        \"homeAddress\": {\r\n            \"country\": \"BR\",\r\n            \"state\": \"SP\",\r\n            \"city\": \"São Paulo\",\r\n            \"neighborhood\": \"Planalto Paulista\",\r\n            \"street\": \"Avenida Moema\",\r\n            \"complement\": null,\r\n            \"number\": \"84\",\r\n            \"location\": {\r\n                \"coordinates\": {\r\n                    \"values\": [\r\n                        -46.65987399999999,\r\n                        -23.603695\r\n                    ],\r\n                    \"longitude\": -46.65987399999999,\r\n                    \"latitude\": -23.603695\r\n                },\r\n                \"type\": 7,\r\n                \"boundingBox\": null,\r\n                \"coordinateReferenceSystem\": null,\r\n                \"extraMembers\": null\r\n            }\r\n        },\r\n        \"longitude\": -46.6620627,\r\n        \"latitude\": -23.6036901,\r\n        \"location\": {\r\n            \"coordinates\": {\r\n                \"values\": [\r\n                    -46.6620627,\r\n                    -23.6036901\r\n                ],\r\n                \"longitude\": -46.6620627,\r\n                \"latitude\": -23.6036901\r\n            },\r\n            \"type\": 7,\r\n            \"boundingBox\": null,\r\n            \"coordinateReferenceSystem\": null,\r\n            \"extraMembers\": null\r\n        },\r\n        \"mobilePhone\": {\r\n            \"ddd\": \"997210201\",\r\n            \"number\": \"14\"\r\n        },\r\n        \"id\": \"5e78ce3dfd83689bd48140f6\",\r\n        \"updatedIn\": \"2020-03-23T14:56:21.743Z\"\r\n    }\r\n]",
+							"raw": "[\n    {\n        \"name\": \"Lennon Dias\",\n        \"username\": \"lennonalvesdias\",\n        \"email\": \"lennonalvesdias@gmail.com\",\n        \"password\": null,\n        \"cpf\": \"01234567890\",\n        \"homeAddress\": {\n            \"country\": \"BR\",\n            \"state\": \"SP\",\n            \"city\": \"São Paulo\",\n            \"neighborhood\": \"Planalto Paulista\",\n            \"street\": \"Avenida Moema\",\n            \"complement\": null,\n            \"number\": \"84\",\n            \"location\": {\n                \"coordinates\": {\n                    \"values\": [\n                        -46.65987399999999,\n                        -23.603695\n                    ],\n                    \"longitude\": -46.65987399999999,\n                    \"latitude\": -23.603695\n                },\n                \"type\": 7,\n                \"boundingBox\": null,\n                \"coordinateReferenceSystem\": null,\n                \"extraMembers\": null\n            }\n        },\n        \"longitude\": -46.6620627,\n        \"latitude\": -23.6036901,\n        \"location\": {\n            \"coordinates\": {\n                \"values\": [\n                    -46.6620627,\n                    -23.6036901\n                ],\n                \"longitude\": -46.6620627,\n                \"latitude\": -23.6036901\n            },\n            \"type\": 7,\n            \"boundingBox\": null,\n            \"coordinateReferenceSystem\": null,\n            \"extraMembers\": null\n        },\n        \"mobilePhone\": {\n            \"ddd\": \"997210201\",\n            \"number\": \"14\"\n        },\n        \"id\": \"5e78ce3dfd83689bd48140f6\",\n        \"updatedIn\": \"2020-03-23T14:56:21.743Z\"\n    }\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -638,18 +926,46 @@
 					"response": []
 				},
 				{
-					"name": "user",
+					"name": "user.update-password",
 					"request": {
-						"method": "DELETE",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"oldPassword\": \"aBc#123$\",\n\t\"newPassword\": \"aBc#123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{urlBase}}/user/5e814b7fdc16bfaff052a6c2",
+							"raw": "{{urlBase}}/user/5e8bc8110d406a2da0e1e2e9/update-password",
 							"host": [
 								"{{urlBase}}"
 							],
 							"path": [
 								"user",
-								"5e814b7fdc16bfaff052a6c2"
+								"5e8bc8110d406a2da0e1e2e9",
+								"update-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/user/5e8aa628c65b8c0001b128f3",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user",
+								"5e8aa628c65b8c0001b128f3"
 							]
 						}
 					},
@@ -683,13 +999,13 @@
 	],
 	"variable": [
 		{
-			"id": "561e60ac-37d1-4f4c-8ad1-1908e2e8385e",
+			"id": "b4dc4ecd-240c-48c6-bc9f-484bb23d5159",
 			"key": "user",
 			"value": "edwardjenner",
 			"type": "string"
 		},
 		{
-			"id": "71b314d0-878d-4072-aca2-c8d3ab2d8000",
+			"id": "aae0c3e9-3a48-4cf9-91e4-4fb70c1c5234",
 			"key": "password",
 			"value": "FYUQ9PnWcvRZEoGVaux!",
 			"type": "string"

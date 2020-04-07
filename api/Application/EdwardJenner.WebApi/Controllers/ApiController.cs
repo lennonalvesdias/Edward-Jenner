@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using EdwardJenner.Domain;
+using EdwardJenner.Domain.Interfaces.Repositories;
 using EdwardJenner.Models.Security;
 using EdwardJenner.Security;
 using Microsoft.AspNetCore.Authorization;
@@ -9,15 +9,19 @@ namespace EdwardJenner.WebApi.Controllers
 {
     public class ApiController : BaseController
     {
-        public ApiController()
+        private readonly IUserRepository _userRepository;
+
+        public ApiController(IUserRepository userRepository)
         {
+            _userRepository = userRepository;
         }
 
         [AllowAnonymous]
         [HttpGet]
         [Route("ping")]
-        public IActionResult Ping()
+        public async Task<IActionResult> Ping()
         {
+            await _userRepository.ListBy(x => true);
             return Ok(new { ping = "pong" });
         }
 
