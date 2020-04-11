@@ -30,7 +30,7 @@ namespace EdwardJenner.Data.Repositories
         {
             entity.Id = string.IsNullOrEmpty(entity.Id) ? ObjectId.GenerateNewId().ToString() : entity.Id;
             entity.UpdatedIn = DateTime.Now;
-            await BaseCollection.ReplaceOneAsync(x => x.Id == entity.Id, entity, new UpdateOptions { IsUpsert = true });
+            await BaseCollection.ReplaceOneAsync(x => x.Id == entity.Id, entity, new ReplaceOptions { IsUpsert = true });
             return entity;
         }
 

@@ -37,7 +37,7 @@ namespace EdwardJenner.Models.Models
         [MaxLength(50, ErrorMessage = "A senha deve conter no máximo 50 letras.")]
         [Required(ErrorMessage = "A senha é obrigatória.")]
         [JsonProperty("password")]
-        [BsonIgnore]
+        [BsonElement("password")]
         public string Password { get; set; }
 
         [JsonProperty("avatar")]
