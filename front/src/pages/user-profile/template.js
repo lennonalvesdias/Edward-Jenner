@@ -10,6 +10,7 @@ export default {
             required 
             pattern=".*\\S.*" 
             tabindex="1" 
+            placeholder=" "
             value="${_user.name}"/>
           <label class="c__input__label">Nome:</label>
         </div>
@@ -21,17 +22,19 @@ export default {
             required 
             pattern=".*\\S.*" 
             tabindex="2" 
+            placeholder=" "
             value="${_user.username}"/>
           <label class="c__input__label">Usuário:</label>
         </div>
         <div class="c__input">
           <input 
             class="c__input__field" 
-            type="mail" 
+            type="email" 
             name="email" 
             required 
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" 
             tabindex="3" 
+            placeholder=" "
             value="${_user.email}"/>
           <label class="c__input__label">E-mail:</label>
         </div> 
@@ -43,6 +46,7 @@ export default {
             required 
             pattern=".*\\S.*" 
             tabindex="4" 
+            placeholder=" "
             value="${_user.birthday}"/>
           <label class="c__input__label">Data de nascimento:</label>
         </div>

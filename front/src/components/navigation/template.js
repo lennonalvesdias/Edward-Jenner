@@ -16,7 +16,9 @@ export default {
               .map((item) => {
                 return `
                 <li>
-                  <a href="#${item.route}" data-router-link>
+                  <a href="${item.route}" data-router-link ${
+                  item.default ? 'data-router-default="true"' : 'data-router-default="false"'
+                }>
                     <span class="${_defaultSelector}__nav__icon">
                       <i class="${item.icon}"></i>
                     </span>

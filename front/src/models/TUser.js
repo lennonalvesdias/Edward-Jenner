@@ -1,5 +1,6 @@
 export default class TUser {
   constructor(user = {}) {
+    this.id = user.id || '';
     this.name = user.name || '';
     this.username = user.username || '';
     this.email = user.email || '';
@@ -7,7 +8,7 @@ export default class TUser {
     this.avatar = user.avatar || '';
     this.addresses = user.adresses || [];
     this.phones = user.phones || [];
-    this.applicationUserId = user.applicationUserId || '';
+    //this.applicationUserId = user.applicationUserId || '';
     this.type = user.type || 0;
     this.birthday = user.birthday || '';
     this.distance = user.distance || '';

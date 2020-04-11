@@ -5,11 +5,11 @@ export default {
         <div class="${_defaultSelector}__content">
           <div class="${_defaultSelector}__content__logotipo"></div>
           <div class="c__input">
-            <input class="c__input__field" type="text" name="email" required pattern=".*\\S.*" tabindex="1"/>
-            <label class="c__input__label">E-mail:</label>
+            <input class="c__input__field" type="text" name="username" placeholder=" " required pattern=".*\\S.*" tabindex="1"/>
+            <label class="c__input__label">Usuário:</label>
           </div>
           <div class="c__input">
-            <input class="c__input__field" type="password" name="password" required pattern=".*\\S.*" tabindex="2"/>
+            <input class="c__input__field" type="password" name="password" placeholder=" " minlength="6" required pattern=".*\\S.*" tabindex="2"/>
             <label class="c__input__label">Senha:</label>
           </div>
           <div class="c__checkbox">

@@ -120,3 +120,35 @@
     background: map_get($colors, 'red');
   }
 }
+
+// TODO - Components
+
+.modal {
+  padding: map_get($spaces, 'normal');
+  height: 100vh;
+  overflow-y: scroll;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 200;
+  background: map_get($colors, 'white');
+
+  &__close {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      background: transparent;
+      border: 0px;
+      font-size: map_get($textSize, 'large');
+      color: map_get($colors, 'red');
+    }
+  }
+}
+
+.blockModal {
+  display: block;
+}

@@ -1,18 +1,30 @@
-import { Notfound } from '../../pages';
 import { memoizeDOMManipulation } from './cacheItensNavigation';
 import { setPrivateProperties } from '../_shared';
 
 const privateProperties = new WeakMap();
 
-export default class Router {
-  constructor(routes = []) {
+export default class CoreRouter {
+  constructor() {
     privateProperties.set(this, {
       id: 0,
-      _routes: routes,
+      _content: {},
+      _contentChildren: {},
+      _routes: [],
+      _routesChildren: [],
     });
     window.onpopstate = () => {
       this.controlHistoryPopState();
     };
+  }
+
+  forRoot(_routes = [], _content) {
+    setPrivateProperties(privateProperties, this, { _content, _routes });
+    this.getInitialRoute();
+  }
+
+  forChildren(_routesChildren = [], _contentChildren = {}) {
+    setPrivateProperties(privateProperties, this, { _routesChildren, _contentChildren });
+    this.getInitialRoute();
   }
 
   setContent(content = {}) {
@@ -29,34 +41,41 @@ export default class Router {
     }
   }
 
-  async routeChange(route = '', pop = false) {
+  async routeChange(originalRoute = '', pop = false) {
     const { _content, _routes } = privateProperties.get(this);
+    const splitRoute = originalRoute.split('/');
+    const route = splitRoute[0];
+    const property = splitRoute[1];
+    const valueFilter = splitRoute[2];
     const component = _routes.find((x) => x.path === route);
     let page;
     this.controlActiveLinks(route);
 
-    if (!component) return _content.route(new Notfound());
+    if (!component) throw Error('Not found page');
 
     this.controlHistoryPushState(route, pop);
 
     if ('guard' in component) {
-      page = await this.applyGuard(component);
+      page = await this.applyGuard(component, property, valueFilter);
     } else if ('resolve' in component) {
-      page = await this.applyResolve(component);
+      page = await this.applyResolve(component, property, valueFilter);
     } else {
       page = new component.page();
     }
 
     if (!page) {
-      _content.route(new Notfound());
-      return;
+      throw Error('Not found page');
     }
     _content.route(page);
   }
 
-  async applyResolve(component) {
+  async applyResolve(component, property, valueQuery) {
     try {
       const response = await component.resolve();
+      if (property && valueQuery) {
+        const findChildren = component.children.find((x) => x.path === property);
+        return new findChildren.page(response, valueQuery);
+      }
       return new component.page(response);
     } catch (err) {
       console.log(err); // eslint-disable-line
@@ -65,7 +84,7 @@ export default class Router {
     }
   }
 
-  async applyGuard(component) {
+  async applyGuard(component, property, valueQuery) {
     const { _routes } = privateProperties.get(this);
     try {
       if (!component.guard()) {
@@ -73,7 +92,7 @@ export default class Router {
         return false;
       }
       if ('resolve' in component) {
-        return await this.applyResolve(component);
+        return await this.applyResolve(component, property, valueQuery);
       }
       return new component.page();
     } catch (err) {
@@ -86,9 +105,14 @@ export default class Router {
     const elements = memoizeDOMManipulation(document, 'querySelectorAll', '[data-router-link]');
     elements.forEach((item) => {
       const href = item.getAttribute('href');
-      if (!href) return;
-      if (!href.includes(route)) item.classList.remove('router-active');
-      if (href.includes(route)) item.classList.add('router-active');
+      const defaultRouter = item.getAttribute('data-router-default');
+      if (route === '' && defaultRouter === 'true') {
+        item.classList.add('router-active');
+      }
+      if (route !== '') {
+        if (!route.search(href) > -1) item.classList.remove('router-active');
+        if (route.search(href) > -1) item.classList.add('router-active');
+      }
     });
   }
 

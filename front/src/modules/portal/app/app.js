@@ -7,7 +7,6 @@ import { routes } from './routing';
 loadPolyfills();
 
 const privateProperties = new WeakMap();
-window.router = new Router(routes);
 /**
  * @class App
  * @classdesc Componente principal
@@ -54,6 +53,6 @@ export default class App extends Component {
   render() {
     this.createChilds();
     const { _content } = privateProperties.get(this);
-    window.router.setContent(_content);
+    Router.forRoot(routes, _content);
   }
 }

@@ -15,5 +15,6 @@
   @include mq('tablet') {
     padding: map_get($spaces, 'normal');
     background: map_get($colors, 'white');
+    min-height: auto;
   }
 }

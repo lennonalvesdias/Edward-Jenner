@@ -1,7 +1,7 @@
 import './user-profile.scss';
+import { breadcrumb, spinner } from '../../components';
 import { isMobileDevice, storageUser } from '../../utils';
 import { Component } from '../../@core';
-import { breadcrumb } from '../../components';
 import template from './template.js';
 
 const privateProperties = new WeakMap();
@@ -31,6 +31,7 @@ export default class UserProfile extends Component {
 
     this.el = this.template('div', { class: _defaultSelector }, template.userProfile(_defaultSelector, _user));
     if (isMobileDevice()) this.buildBreadcrumb();
+    spinner.show(false);
     return this.el;
   }
 }

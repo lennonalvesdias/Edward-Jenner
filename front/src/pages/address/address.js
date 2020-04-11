@@ -1,6 +1,6 @@
 import './address.scss';
 import { Component, setPrivateProperties } from '../../@core';
-import { breadcrumb, spinner } from '../../components';
+import { alert, breadcrumb, spinner } from '../../components';
 import { getAddressWithCEP, isMobileDevice } from '../../utils';
 import { TAddress } from '../../models';
 import template from './template.js';
@@ -11,12 +11,13 @@ const privateProperties = new WeakMap();
  * @classdesc component/class Address
  */
 export default class Address extends Component {
-  constructor() {
+  constructor(data) {
     super();
     privateProperties.set(this, {
       _defaultSelector: 'c__address',
       _defaultName: 'Endereços',
       _defaultIcon: 'icon-location-circled',
+      _addresses: this.transformData(data),
       _address: new TAddress(),
     });
   }
@@ -27,35 +28,87 @@ export default class Address extends Component {
     el.appendChild(breadcrumb.render({ name: _defaultName, icon: _defaultIcon }));
   }
 
-  getChilds() {
-    const { el } = this;
-    const { _address } = privateProperties.get(this);
-    const fieldCEP = el.querySelector('[name="cep"]');
-    const _button = el.querySelector('button');
-    setPrivateProperties(privateProperties, this, { _button });
+  transformData(data) {
+    if (!data) return [];
+    return data.map((address) => new TAddress(address));
+  }
 
-    Array.from(el.querySelectorAll('.c__input__field')).forEach((item) => {
-      item.addEventListener('change', (evt) => {
-        _address[evt.target.getAttribute('name')] = evt.target.value;
-        setPrivateProperties(privateProperties, this, { _address });
-        this.checkModelToSend();
-      });
-    });
+  handleEventsModal(evt) {
+    const { _defaultSelector, _addresses } = privateProperties.get(this);
+    const { modal, contentModal, btnCloseModal } = this;
+
+    const closeModal = () => {
+      this.modal.classList.remove('blockModal');
+    };
+
+    btnCloseModal.onclick = (evt) => {
+      evt.preventDefault();
+      closeModal();
+    };
+
+    const cep = evt.target.getAttribute('data-identify-item');
+    let address;
+    if (cep) {
+      address = _addresses.find((x) => x.cep === Number(cep));
+    } else {
+      address = new TAddress();
+    }
+
+    contentModal.innerHTML = template.address(_defaultSelector, address);
+    this.eventsForm();
+    modal.classList.add('blockModal');
+  }
+
+  eventsForm() {
+    const { _address } = privateProperties.get(this);
+    const { el } = this;
+
+    const fieldCEP = el.querySelector('[name="cep"]');
+    const buttonSend = el.querySelector('.btnSendAddress');
+
     fieldCEP.addEventListener('change', async (evt) => {
       evt.preventDefault();
       this.getCEP(evt.target);
     });
+
+    Array.from(el.querySelectorAll('.c__input__field'))?.forEach((item) => {
+      item.addEventListener('change', (evt) => {
+        _address[evt.target.getAttribute('name')] = evt.target.value;
+        setPrivateProperties(privateProperties, this, { _address });
+        this.checkModelToSend(buttonSend);
+      });
+    });
   }
 
-  checkModelToSend() {
-    const { _button } = privateProperties.get(this);
+  checkModelToSend(button) {
     const { street, number, neighborhood, state, country, type } = privateProperties.get(this)['_address'];
 
     if (street && number && neighborhood && state && country && type) {
-      _button.removeAttribute('disabled');
+      button.removeAttribute('disabled');
     } else {
-      _button.setAttribute('disabled', true);
+      button.setAttribute('disabled', true);
     }
+  }
+
+  getChilds() {
+    const { el } = this;
+
+    const newAddress = el.querySelector('.newAddress');
+    this.modal = el.querySelector(`.modal`);
+    this.contentModal = this.modal.querySelector(`.modal__content`);
+    this.btnCloseModal = this.modal.querySelector('.btnCloseModal');
+
+    newAddress.onclick = (evt) => {
+      evt.preventDefault();
+      this.handleEventsModal(evt);
+    };
+
+    Array.from(el.querySelectorAll('.btnEditar'))?.forEach((btn) => {
+      btn.addEventListener('click', (evt) => {
+        evt.preventDefault();
+        this.handleEventsModal(evt);
+      });
+    });
   }
 
   async getCEP(element) {
@@ -67,10 +120,10 @@ export default class Address extends Component {
       if (response) {
         const address = {
           cep,
-          street: response.logradouro,
-          neighborhood: response.bairro,
-          city: response.localidade,
-          state: response.uf,
+          street: response.logradouro || '',
+          neighborhood: response.bairro || '',
+          city: response.localidade || '',
+          state: response.uf || '',
         };
         Object.assign(_address, address);
         setPrivateProperties(privateProperties, this, { _address });
@@ -78,17 +131,23 @@ export default class Address extends Component {
           const input = el.querySelector(`input[name="${k}"]`);
           if (input) input.value = v;
         }
+      } else {
+        alert.showMessage(1, 'Não foi possível encontrar CEP');
       }
     }
   }
 
   render() {
-    const { _defaultSelector, _address } = privateProperties.get(this);
+    const { _defaultSelector, _addresses } = privateProperties.get(this);
 
-    this.el = this.template('div', { class: _defaultSelector }, template.address(_defaultSelector, _address));
+    this.el = this.template(
+      'div',
+      { class: _defaultSelector },
+      template.initialAddresses(_defaultSelector, _addresses)
+    );
     if (isMobileDevice()) this.buildBreadcrumb();
-    spinner.show(false);
     this.getChilds();
+    spinner.show(false);
     return this.el;
   }
 }

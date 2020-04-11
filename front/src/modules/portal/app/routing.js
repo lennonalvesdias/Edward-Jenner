@@ -1,18 +1,18 @@
 import { Address, List, Map, Phones, Profile, UserProfile } from '../../../pages';
-import { resolveUser } from './resolvers';
+import { resolveAddresses, resolveList, resolvePhones } from './resolvers';
 import { userIsLogged } from './guards';
 
 const routes = [
   {
     path: '',
     page: List,
-    resolve: resolveUser,
+    resolve: resolveList,
     guard: userIsLogged,
   },
   {
     path: 'list',
     page: List,
-    resolve: resolveUser,
+    resolve: resolveList,
     guard: userIsLogged,
   },
   {
@@ -26,18 +26,20 @@ const routes = [
     guard: userIsLogged,
   },
   {
-    path: 'user-profile',
+    path: 'profile-user',
     page: UserProfile,
     guard: userIsLogged,
   },
   {
-    path: 'phones',
+    path: 'profile-phones',
     page: Phones,
+    resolve: resolvePhones,
     guard: userIsLogged,
   },
   {
-    path: 'address',
+    path: 'profile-address',
     page: Address,
+    resolve: resolveAddresses,
     guard: userIsLogged,
   },
   {

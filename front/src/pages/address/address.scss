@@ -12,8 +12,20 @@
     }
   }
 
+  &__content {
+    position: relative;
+    padding-top: map_get($spaces, 'small');
+
+    &__card {
+      padding: map_get($spaces, 'normal');
+      background: map_get($colors, 'white');
+      margin-bottom: map_get($spaces, 'normal');
+    }
+  }
+
   @include mq('tablet') {
     padding: map_get($spaces, 'normal');
     background: map_get($colors, 'white');
+    min-height: auto;
   }
 }

@@ -24,7 +24,7 @@ const ajax = (config) => {
             resolve(JSON.parse(res));
           } else {
             controlSpinner(config.showSpinner);
-            resolve();
+            resolve(true);
           }
         } else if (req.status === 204) {
           controlSpinner(config.showSpinner);

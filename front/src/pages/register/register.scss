@@ -20,14 +20,22 @@
       margin-bottom: map_get($spaces, 'medium');
     }
 
+    .btnSend {
+      display: none;
+    }
+
     @include mq('desktop') {
       padding: map_get($spaces, 'large');
       border-right: 1px solid rgba(100, 100, 100, 0.1);
       margin-top: map_get($spaces, 'x-large');
+
+      .btnSend {
+        display: block;
+      }
     }
   }
 
-  &__socials {
+  &__terms {
     flex: 1;
     padding: map_get($spaces, 'normal');
 
@@ -40,7 +48,7 @@
       margin: map_get($spaces, 'normal') 0;
     }
 
-    &__terms {
+    &__content {
       max-height: 300px;
       padding: map_get($spaces, 'normal');
       background: map_get($colors, 'white');
@@ -61,6 +69,16 @@
       display: block;
       margin: map_get($spaces, 'normal') 0;
       color: map_get($colors, 'red');
+    }
+
+    .btnSend {
+      display: block;
+    }
+
+    @include mq('desktop') {
+      .btnSend {
+        display: none;
+      }
     }
   }
 }

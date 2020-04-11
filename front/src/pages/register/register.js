@@ -1,7 +1,8 @@
 import './register.scss';
-import { registerUser, storageUser } from '../../utils';
-import { Component } from '../../@core';
+import { Component, Router } from '../../@core';
+import { registerUser, setDelay, transformDateToAPI } from '../../utils';
 import { TUser } from '../../models';
+import { alert } from '../../components';
 
 import template from './template.js';
 
@@ -23,16 +24,19 @@ export default class Register extends Component {
     const { _model } = privateProperties.get(this);
     const { el } = this;
 
-    this.button = el.querySelector('button');
-    this.button.addEventListener('click', async () => {
-      const response = await registerUser(_model);
-      if (response) {
-        _model.logged = true;
-        storageUser(_model);
-        window.router.routeChange('welcome');
-      } else {
-        console.log('HERE'); // eslint-disable-line
-      }
+    const buttons = el.querySelectorAll('.btnSend');
+    const stateButtonControl = (state = false) => {
+      Array.from(buttons)?.forEach((button) => {
+        if (!state) button.setAttribute('disabled', true);
+        else button.removeAttribute('disabled');
+      });
+    };
+
+    Array.from(buttons)?.forEach((button) => {
+      button.addEventListener('click', (evt) => {
+        evt.preventDefault();
+        this.register();
+      });
     });
 
     Array.from(el.querySelectorAll('input'))?.forEach((element) => {
@@ -40,10 +44,27 @@ export default class Register extends Component {
         const property = evt.target.name;
         _model[property] = evt.target.value;
 
-        if (_model.name && _model.email && _model.password && _model.typeUser) this.button.removeAttribute('disabled');
-        else this.button.setAttribute('disabled', true);
+        if (_model.name && _model.email && _model.password && _model.typeUser && _model.birthday && _model.username)
+          stateButtonControl(true);
+        else stateButtonControl(false);
       });
     });
+  }
+
+  async register() {
+    const { _model } = privateProperties.get(this);
+    const response = await registerUser({
+      ..._model,
+      type: _model._type,
+      birthday: transformDateToAPI(_model.birthday),
+    });
+    if (response) {
+      alert.showMessage(0, 'Usuário cadastrado com sucesso');
+      await setDelay(2000);
+      Router.routeChange('login');
+    } else {
+      alert.showMessage(1, 'Ocorreu um erro ao fazer o seu cadastro.');
+    }
   }
 
   render() {

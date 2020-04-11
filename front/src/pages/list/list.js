@@ -8,8 +8,9 @@ const privateProperties = new WeakMap();
  * @classdesc component/class List
  */
 export default class List extends Component {
-  constructor() {
+  constructor(data) {
     super();
+    console.log(data); // eslint-disable-line
     privateProperties.set(this, {
       _defaultSelector: 'c__list__page',
     });

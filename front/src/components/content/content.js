@@ -26,6 +26,7 @@ export default class Content extends Component {
 
     this.el = this.template('div', {
       class: _defaultSelector,
+      'data-router-content': 'root',
     });
     return this.el;
   }

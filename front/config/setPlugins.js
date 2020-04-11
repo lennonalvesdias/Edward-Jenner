@@ -22,7 +22,7 @@ const modules = [
     minify,
   },
   {
-    filename: './portal.html',
+    filename: './portal/index.html',
     template: './src/modules/portal/index.html',
     chunks: ['portal', 'main~portal', 'vendors'],
     minify,

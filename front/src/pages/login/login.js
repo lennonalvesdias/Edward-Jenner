@@ -1,8 +1,9 @@
+/* eslint-disable */
 import './login.scss';
-import { checkLogin, storageUser } from '../../utils';
 import { Component } from '../../@core';
+import { grantLogin, setUserTokens, storageUser, getUser, transformDateToFront } from '../../utils';
 import { TUser } from '../../models';
-//import { alert } from '../../components';
+import { alert } from '../../components';
 import template from './template.js';
 
 const privateProperties = new WeakMap();
@@ -26,41 +27,46 @@ export default class Login extends Component {
     const button = el.querySelector('button');
     button?.addEventListener('click', async (evt) => {
       evt.preventDefault();
-      const response = await checkLogin(_model);
-      console.log(response); // eslint-disable-line
-      storageUser(
-        new TUser({
-          logged: false,
-          id: 4,
-          name: 'Luis Paulo Morais Cardoso',
-          username: 'luispmorais',
-          email: 'luis.cardoso@xpi.com.br',
-          password: '123456',
-          avatar:
-            'https://avatars2.githubusercontent.com/u/16003741?s=460&u=c236f8e7162185760ebd018a2249486defcef461&v=4',
-          birthday: '25/08/1993',
-          address: null,
-          typeUser: '1',
-          description: null,
-          keepConnected: null,
-        })
-      );
-      window.location.href = 'portal.html';
-      // TODO - descomentar para fazer validação
-      // if (response && response.length > 0) {
-      //   storageUser(new TUser(response[0]));
-      //   window.location.href = 'portal.html';
-      // } else alert.showMessage(1, 'Erro ao efetuar o login');
+      this.login();
     });
 
     Array.from(el.querySelectorAll('input'))?.forEach((input) => {
       input.addEventListener('change', (evt) => {
         const property = evt.target.name;
         _model[property] = evt.target.value;
-        if (_model.email && _model.password) button?.removeAttribute('disabled');
+        if (_model.username && _model.password) button?.removeAttribute('disabled');
         else button?.setAttribute('disabled', true);
       });
     });
+  }
+
+  async login() {
+    const { _model } = privateProperties.get(this);
+    const objectToSend = {
+      username: _model.username,
+      password: _model.password,
+      grantType: 'password',
+    };
+    const response = await grantLogin(objectToSend);
+    if (response && response.authenticated) {
+      setUserTokens(response);
+      this.loadUser();
+    } else {
+      alert.showMessage(1, 'Não foi possível fazer login.<br/>Confirme seus dados para tentar novamente');
+    }
+  }
+
+  async loadUser() {
+    const { _model } = privateProperties.get(this);
+    const user = await getUser(_model.username);
+    if (user) {
+      user.birthday = transformDateToFront(user.birthday);
+      user.logged = true;
+      storageUser(new TUser(user));
+      window.location.href = 'portal/';
+      return;
+    }
+    alert.showMessage(1, 'Não foi possível carregar seus dados no momento');
   }
 
   render() {

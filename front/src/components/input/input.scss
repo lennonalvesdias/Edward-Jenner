@@ -2,49 +2,91 @@
 
 .c__input {
   position: relative;
-  width: 100%;
-  margin: map_get($spaces, 'large') 0;
+  background: transparent;
+  border-bottom: 1px solid map_get($colors, 'black');
+  margin-bottom: map_get($spaces, 'normal');
 
-  &__field {
-    position: relative;
+  label {
+    opacity: 0.6;
+    font-weight: bold;
+    position: absolute;
+    top: map_get($spaces, 'normal');
+    left: map_get($spaces, 'normal');
+    font-size: map_get($textSize, 'normal');
+  }
+  textarea,
+  select,
+  input[type='text'],
+  input[type='email'],
+  input[type='password'] {
     width: 100%;
+    border: 0;
+    padding: map_get($spaces, 'normal');
+    background-color: rgba(255, 255, 255, 0.5);
     z-index: 1;
-    height: map_get($spaces, 'large');
-    background: transparent;
-    box-shadow: 0 0 0 transparent;
-    border: 0px;
-    border-bottom: 1px solid map_get($colors, 'black');
-    padding: 0 map_get($spaces, 'small');
+    position: relative;
+    border-radius: 0;
+    font-size: map_get($textSize, 'normal');
     font-weight: 600;
-    border-radius: 0px;
 
-    &:focus,
-    &:active {
-      outline: none;
+    &:focus {
+      outline: 0;      
       box-shadow: 0 0 0 transparent;
+      border-radius: 0;
+
+      & + label {
+        opacity: 0;
+      }
     }
 
-    /*&:invalid {
-      border-bottom: 2px solid map_get($colors, 'red');
-    }*/
+    &:valid {
+      background-image: url(../../assets/img/logo-min.png);
+      background-size: 30px;
+      background-repeat: no-repeat;
+      background-position: 95%;
+      & + label {
+        opacity: 0;
+      }
+    }
+
+    &:invalid:not(:focus):not(:placeholder-shown) {
+      background: map_get($colors, 'red');
+      color: map_get($colors, 'white');
+      & + label {
+        opacity: 0;
+      }
+    }
+
+    &:invalid:focus:not(:placeholder-shown) {
+      & ~ .requirements {
+        max-height: 200px;     
+        padding: map_get($spaces, 'small');   
+      }
+    }
   }
 
-  &__label {
-    position: absolute;
-    top: map_get($spaces, 'small');
-    left: 0;
-    font-weight: 500;
-    transition: 0.5s;
-  }
-
-  &__field:focus + &__label,
-  &__field:valid + &__label {
-    top: -16px;
-    font-size: map_get($textSize, 'small');
-  }
-
-  textarea {
+  textarea{
+    border: 0;
     height: 100px;
-    border: 1px solid map_get($colors, 'black');
+    width: 100%;
+    resize: none;
+
+    &:focus,
+    &:active{
+      outline: none;
+      box-shadow: 0 0 0 transparent;
+      border-radius: 0;
+    }
+  }
+
+  .requirements {
+    padding: 0 map_get($spaces, 'small');
+    max-height: 0;
+    transition: 0.28s;
+    overflow: hidden;
+    color: map_get($colors, 'black');
+    background: rgba(255,255,255,0.5);
+    font-style: italic;
+    font-size: map_get($textSize, 'small');
   }
 }

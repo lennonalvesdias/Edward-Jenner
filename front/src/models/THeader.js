@@ -32,6 +32,7 @@ const logged = [
     name: 'Listas',
     icon: 'icon-docs',
     route: 'list',
+    default: true,
   },
   {
     name: 'Mapa',

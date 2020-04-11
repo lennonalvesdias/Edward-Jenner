@@ -1,6 +1,6 @@
 import './home.scss';
 import { Button, Card } from '../../components';
-import { Component } from '../../@core';
+import { Component, Router } from '../../@core';
 import template from './template.js';
 
 const privateProperties = new WeakMap();
@@ -21,14 +21,14 @@ export default class Home extends Component {
     const btnCadastro = new Button({
       label: 'Cadastro',
       callback: () => {
-        window.router?.routeChange('register');
+        Router.routeChange('register');
       },
     });
     const btnLogin = new Button({
       label: 'Login',
       cssClass: '--secondary',
       callback: () => {
-        window.router?.routeChange('login');
+        Router.routeChange('login');
       },
     });
     const card = new Card({

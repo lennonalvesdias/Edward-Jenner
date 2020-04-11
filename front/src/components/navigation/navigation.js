@@ -1,5 +1,5 @@
 import './navigation.scss';
-import { Component } from '../../@core';
+import { Component, Router } from '../../@core';
 import { THeader } from '../../models';
 import template from './template.js';
 
@@ -23,7 +23,7 @@ export default class Navigation extends Component {
       item.addEventListener('click', function (evt) {
         evt.preventDefault();
         const route = this.getAttribute('href')?.replace('#', '');
-        if (route) window.router?.routeChange(route);
+        if (route) Router.routeChange(route);
       });
     });
   }

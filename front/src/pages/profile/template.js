@@ -1,5 +1,5 @@
 export default {
-  profile(_defaultSelector, _user) {
+  profile(_defaultSelector, _user, _pages) {
     const content = `${_defaultSelector}__content`;
     const profile = `${content}__profile`;
     return `
@@ -16,30 +16,20 @@ export default {
           <div class="${content}__control">
             <div class="${content}__links">
               <ul>
-                <li>
-                  <a href="user-profile">
-                    <span>
-                      <i class="icon-user-circle"></i>
-                    </span>
-                    Dados pessoais
-                  </a>
-                </li>
-                <li>
-                  <a href="address">
-                    <span>
-                      <i class="icon-location-circled"></i>
-                    </span>
-                    Endereços
-                  </a>
-                </li>
-                <li>
-                  <a href="phones">
-                    <span>
-                      <i class="icon-phone-circled"></i>
-                    </span>
-                    Telefones
-                  </a>
-                </li>
+                ${_pages
+                  .map(
+                    (item) => `
+                  <li>
+                    <a href="${item.route}">
+                      <span>
+                        <i class="${item.icon}"></i>
+                      </span>
+                      ${item.name}
+                    </a>
+                  </li>
+                `
+                  )
+                  .join('')}                
               </ul>
             </div>  
             <div class="${content}__pages"></div>        

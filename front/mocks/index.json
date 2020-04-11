@@ -15,6 +15,63 @@
       "keepConnected": null
     }
   ],
+  "addresses": [
+    {
+      "cep": 18055630,
+      "country": "Brasil",
+      "state": "SP",
+      "city": "São Paulo",
+      "neighborhood": "Jaguaré",
+      "street": "Rua Jaguaré",
+      "number": 186,
+      "complement": "Bloco 4 Apartamento 52",
+      "type": 0
+    },
+    {
+      "cep": 18055630,
+      "country": "Brasil",
+      "state": "SP",
+      "city": "São Paulo",
+      "neighborhood": "Jaguaré",
+      "street": "Rua Jaguaré",
+      "number": 186,
+      "complement": "Bloco 4 Apartamento 52",
+      "type": 0
+    }
+  ],
+  "phones": [
+    {
+      "ddd": "15",
+      "number": "996162959",
+      "type": 1
+    },
+    {
+      "ddd": "15",
+      "number": "981149270",
+      "type": 0
+    }
+  ],
+  "list": [
+    {
+      "userId": "5e81609b009d1aa6fcba8900",
+      "orderType": 0,
+      "items": [
+        {
+          "orderId": "5e8a0f59a6dd3c0001e7d658",
+          "name": "Arroz",
+          "quantity": 1,
+          "maximumPrice": 10,
+          "id": "5e8a0faaa6dd3c0001e7d65b",
+          "updatedIn": "2020-04-05T17:04:42.285Z"
+        }
+      ],
+      "lastStatus": 0,
+      "longitude": -46.6688605,
+      "latitude": -23.6104878,
+      "id": "5e8a0f59a6dd3c0001e7d658",
+      "updatedIn": "2020-04-05T17:03:21.127Z"
+    }
+  ],
   "register": [
     {
       "logged": false,
@@ -30,6 +87,23 @@
       "age": null,
       "description": null,
       "keepConnected": null
+    },
+    {
+      "name": "",
+      "username": "",
+      "email": "",
+      "password": "",
+      "avatar": "",
+      "addresses": [],
+      "phones": [],
+      "applicationUserId": "",
+      "_type": 0,
+      "birthday": "",
+      "distance": "",
+      "logged": false,
+      "keepConnected": false,
+      "description": "",
+      "id": 5
     }
   ]
 }

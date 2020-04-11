@@ -1,5 +1,5 @@
 import './header.scss';
-import { Component, setPrivateProperties } from '../../@core';
+import { Component, Router, setPrivateProperties } from '../../@core';
 import { THeader } from '../../models';
 import template from './template.js';
 
@@ -42,14 +42,14 @@ export default class Header extends Component {
 
     el.querySelector(`.${_defaultSelector}__logotipo`).onclick = (evt) => {
       evt.preventDefault();
-      window.router?.routeChange('home');
+      Router.routeChange('home');
     };
 
     Array.from(this.navigation.querySelectorAll('a'))?.forEach((item) => {
       item.onclick = (evt) => {
         evt.preventDefault();
         const route = evt.target.getAttribute('href')?.replace('#', '');
-        window.router?.routeChange(route);
+        Router.routeChange(route);
         this.controlNavigation();
       };
     });
