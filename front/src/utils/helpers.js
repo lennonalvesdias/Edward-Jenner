@@ -24,9 +24,12 @@ const getCookie = (cname) => {
   return false;
 };
 
-const setUserTokens = (user) => {
-  document.cookie = `${STRINGS.USER_TOKEN_NAME}=${user.accessToken}`;
-  document.cookie = `${STRINGS.USER_REFRESH_NAME}=${user.refreshToken}`;
+const storageTokens = (user) => {
+  if (!user) {
+    return JSON.parse(sessionStorage.getItem(`token-${STRINGS.PROJECT_IDENTIFY}`)) || false;
+  }
+  sessionStorage.setItem(`token-${STRINGS.PROJECT_IDENTIFY}`, JSON.stringify(user));
+  return user;
 };
 
 const storageUser = (user) => {
@@ -54,4 +57,4 @@ const transformDateToFront = (value) => {
   return `${d?.split('T')[0]}/${m}/${y}`;
 };
 
-export { isMobileDevice, setDelay, setUserTokens, storageUser, getCookie, transformDateToAPI, transformDateToFront };
+export { isMobileDevice, setDelay, storageTokens, storageUser, getCookie, transformDateToAPI, transformDateToFront };

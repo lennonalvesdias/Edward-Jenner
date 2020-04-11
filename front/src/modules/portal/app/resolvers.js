@@ -1,12 +1,13 @@
-import { STRINGS, getAllAddress, getAllPhones, getList } from '../../../utils';
+import { STRINGS, getAllAddress, getAllPhones, getList, setDelay } from '../../../utils';
+import { spinner } from '../../../components';
 
 const resolveUser = async () => {
   return new Promise((resolve) => {
-    window.spinner?.show(true);
-    setTimeout(() => {
+    spinner.show(true);
+    setDelay(1000).then(() => {
       resolve(JSON.parse(localStorage.getItem(STRINGS.PROJECT_IDENTIFY)));
-      window.spinner.show(false);
-    }, 1000);
+      spinner.show(false);
+    });
   });
 };
 

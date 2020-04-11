@@ -1,7 +1,7 @@
 /* eslint-disable */
 import './login.scss';
 import { Component } from '../../@core';
-import { grantLogin, setUserTokens, storageUser, getUser, transformDateToFront } from '../../utils';
+import { grantLogin, storageTokens, storageUser, getUser, transformDateToFront } from '../../utils';
 import { TUser } from '../../models';
 import { alert } from '../../components';
 import template from './template.js';
@@ -49,7 +49,7 @@ export default class Login extends Component {
     };
     const response = await grantLogin(objectToSend);
     if (response && response.authenticated) {
-      setUserTokens(response);
+      storageTokens(response);
       this.loadUser();
     } else {
       alert.showMessage(1, 'Não foi possível fazer login.<br/>Confirme seus dados para tentar novamente');

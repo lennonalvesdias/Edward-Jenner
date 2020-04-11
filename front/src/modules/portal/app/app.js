@@ -1,6 +1,6 @@
 import './app.scss';
 import { Component, Router, setPrivateProperties } from '../../../@core';
-import { STRINGS, loadPolyfills } from '../../../utils';
+import { STRINGS, loadPolyfills, maintanableAccess } from '../../../utils';
 import { alert, content, navigation, spinner } from '../../../components';
 import { routes } from './routing';
 
@@ -53,6 +53,7 @@ export default class App extends Component {
   render() {
     this.createChilds();
     const { _content } = privateProperties.get(this);
+    maintanableAccess();
     Router.forRoot(routes, _content);
   }
 }

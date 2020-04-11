@@ -5,10 +5,10 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-const grantLogin = async (user) => {
+const grantLogin = async (user, showSpinner = true) => {
   try {
     const url = `${URLS.API_PATH}/api/login`;
-    return await post(url, JSON.stringify(user), headers, true);
+    return await post(url, JSON.stringify(user), headers, showSpinner);
   } catch (err) {
     console.log(err); // eslint-disable-line
     return false;
