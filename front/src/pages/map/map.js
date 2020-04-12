@@ -39,7 +39,8 @@ export default class Map extends Component {
         items: ['Item A', 'Item B', 'Item C', 'Item D', 'Item E', 'Item F', 'Item G', 'Item H'],
       },
     };
-
+    const latitude = -23.5306712;
+    const longitude = -46.448034299999996;
     // checar se já existe instancia
     const markerclustererplus = document.createElement('script');
     markerclustererplus.src = 'https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js';
@@ -53,7 +54,7 @@ export default class Map extends Component {
       console.log('HER');
       spinner.show(false);
       // locationClient = {lat: nearbyMock.client.location.latitude, lng: nearbyMock.client.location.longitude};
-      const locationLennon = { lat: -23.6036901, lng: -46.6620627 };
+      const locationLennon = { lat: latitude, lng: longitude };
       const locationIbirapuera = { lat: -23.6104878, lng: -46.6688605 };
 
       const map = new window.google.maps.Map(document.getElementById('map'), {

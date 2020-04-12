@@ -1,7 +1,27 @@
 export default {
-  list(_defaultSelector) {
+  list(_defaultSelector, mockItems) {
     return `
-        <h1 class="${_defaultSelector}__title">Listas</h1>
+				<section class="${_defaultSelector}__list">
+				${mockItems
+          .map(
+            ({ nome, quantidade, precoMaximo }) => `
+							<div class="${_defaultSelector}__list__item">
+								<i class="icon-user-circle"></i>
+								<dl>
+									<dt>
+										<h3>${nome}</h3>
+									</dt>
+									<dd>
+										<p>Quantidade: ${quantidade}</p>
+										<p>Preço maximo: ${precoMaximo}</p>
+									</dd>
+								</dl>
+							</div>
+						`
+          )
+          .join('')}
+					
+				</section>
       `;
   },
 };

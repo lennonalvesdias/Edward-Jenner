@@ -17,8 +17,52 @@ export default class List extends Component {
 
   render() {
     const { _defaultSelector } = privateProperties.get(this);
+    const mockItems = [
+      {
+        id: 1,
+        nome: 'Item y',
+        quantidade: 12,
+        precoMaximo: 30.5,
+        categoria: '',
+      },
+      {
+        id: 2,
+        nome: 'Item x',
+        quantidade: 12,
+        precoMaximo: 30.5,
+        categoria: '',
+      },
+      {
+        id: 2,
+        nome: 'Item x',
+        quantidade: 12,
+        precoMaximo: 30.5,
+        categoria: '',
+      },
+      {
+        id: 1,
+        nome: 'Item y',
+        quantidade: 12,
+        precoMaximo: 30.5,
+        categoria: '',
+      },
+      {
+        id: 2,
+        nome: 'Item x',
+        quantidade: 12,
+        precoMaximo: 30.5,
+        categoria: '',
+      },
+      {
+        id: 2,
+        nome: 'Item x',
+        quantidade: 12,
+        precoMaximo: 30.5,
+        categoria: '',
+      },
+    ];
 
-    this.el = this.template('div', { class: _defaultSelector }, template.list(_defaultSelector));
+    this.el = this.template('div', { class: _defaultSelector }, template.list(_defaultSelector, mockItems));
     return this.el;
   }
 }
